@@ -176,46 +176,43 @@ PostgreSQL, SQL (via `jupysql`/`ipython-sql` in Jupyter)
 
 ---
 
-## Files
-
-- `02_sales_data_profiling.ipynb`: schema audit, duplicate/null diagnostics, data hygiene and boundary checks
-- `03_sales_data_preparation.ipynb`: territory remediation and verification
-- `05_sales_business_analysis.ipynb`: schema normalization, business questions, window functions, KPI analysis
-- `data_quality_audit.md`: standalone write-up of the data quality findings and recommendations
-
----
-
 ## Repository Structure
 
 ```
 sales_data_audit_and_EDA/
 │
 ├── data/
-│ ├── raw/
-│ └── processed/
+│   ├── raw/
+│   └── processed/
 │
-│──── documentation/
-│ │
-│ └──── data_quality_audit.md/
-│
+├── documentation/
+│   └── data_quality_audit.md
 │
 ├── notebooks/
-│ ├── 02_sales_data_profiling.ipynb/
-│ ├── 03_sales_data_preparation.ipynb/
-│ └──── 04_sales_business_analysis.ipynb/
-│
+│   ├── 01_sales_data_profiling.ipynb
+│   ├── 02_sales_data_preparation.ipynb
+│   └── 03_sales_business_analysis.ipynb
 │
 ├── sql/
-│ ├── 01_database_creation.sql
-│ └──── 04_normalization.sql
-│
-│
-│
-│
+│   ├── 01_database_creation.sql
+│   └── 02_normalization.sql
 │
 ├── README.md
-└──
+└── requirements.txt
 ```
+
+---
+
+## Pipeline Order
+
+The two folders are numbered independently, but this project runs in one
+continuous sequence across both:
+
+1. `sql/01_database_creation.sql` — create the database and load the raw table
+2. `notebooks/01_sales_data_profiling.ipynb` — audit schema, missing values, duplicates
+3. `notebooks/02_sales_data_preparation.ipynb` — apply and verify targeted fixes
+4. `sql/02_normalization.sql` — restructure the flat table into a relational schema
+5. `notebooks/03_sales_business_analysis.ipynb` — business questions, KPIs, insights
 
 ---
 
